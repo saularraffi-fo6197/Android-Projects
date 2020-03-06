@@ -129,7 +129,6 @@
             android:layout_marginTop="20dp">
         </TextView>
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -232,22 +231,43 @@
 
     </LinearLayout>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@android:color/holo_blue_bright">-->
-<!--        -->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Games played"-->
-<!--            android:textSize="20sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="@android:color/white"-->
-<!--            android:layout_margin="20dp">-->
-<!--        </TextView>-->
-<!--        -->
-<!--    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_orange_light">
+
+        <LinearLayout
+            android:layout_width="214dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_orange_light">
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="40dp"
+                android:text="Reset Game"
+                android:textStyle="bold">
+            </Button>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_orange_light">
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:text="Reset Status"
+                android:textStyle="bold">
+            </Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
 
