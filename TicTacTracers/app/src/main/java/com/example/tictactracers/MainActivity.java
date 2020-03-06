@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton button_00;
@@ -27,26 +29,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button resetGame;
     Button resetStats;
 
+    boolean gameIsActive = true;
+
     final int EMPTY = 0;
     final int HUMAN = 1;
     final int COMPUTER = 2;
 
-    int turn = HUMAN;
-
-    int[] board = new int[9];
+    int[] board = {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY};
 
     int[][] wins = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
-
-    public Boolean checkWin(int player) {
-        for (int i = 0; i < 8; i++) {
-            if (board[wins[i][0]] == player &&
-                    board[wins[i][0]] == player &&
-                    board[wins[i][0]] == player) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
 @Override
@@ -72,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 button_20.setImageResource(0);
                 button_21.setImageResource(0);
                 button_22.setImageResource(0);
+
+                for (int i = 0; i < 9; i++) {
+                    board[i] = EMPTY;
+                }
+
+                gameIsActive = true;
             }
         });
 
@@ -98,58 +95,98 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button_00:
-                takeTurn(button_00);
-                board[0] = turn;
-                break;
-            case R.id.button_01:
-                takeTurn(button_01);
-                board[1] = turn;
-                break;
-            case R.id.button_02:
-                takeTurn(button_02);
-                board[2] = turn;
-                break;
-            case R.id.button_10:
-                takeTurn(button_10);
-                board[3] = turn;
-                break;
-            case R.id.button_11:
-                takeTurn(button_11);
-                board[4] = turn;
-                break;
-            case R.id.button_12:
-                takeTurn(button_12);
-                board[5] = turn;
-                break;
-            case R.id.button_20:
-                takeTurn(button_20);
-                board[6] = turn;
-                break;
-            case R.id.button_21:
-                takeTurn(button_21);
-                board[7] = turn;
-                break;
-            case R.id.button_22:
-                takeTurn(button_22);
-                board[8] = turn;
-                break;
-        }
-        if (turn == HUMAN) {
-            turn = COMPUTER;
-        }
-        else {
-            turn = HUMAN;
+
+        if (gameIsActive) {
+
+            ImageButton button = button_00;
+            int position = 0;
+
+            switch (v.getId()) {
+                case R.id.button_00:
+                    button = button_00;
+                    position = 0;
+                    break;
+                case R.id.button_01:
+                    button = button_01;
+                    position = 1;
+                    break;
+                case R.id.button_02:
+                    button = button_02;
+                    position = 2;
+                    break;
+                case R.id.button_10:
+                    button = button_10;
+                    position = 3;
+                    break;
+                case R.id.button_11:
+                    button = button_11;
+                    position = 4;
+                    break;
+                case R.id.button_12:
+                    button = button_12;
+                    position = 5;
+                    break;
+                case R.id.button_20:
+                    button = button_20;
+                    position = 6;
+                    break;
+                case R.id.button_21:
+                    button = button_21;
+                    position = 7;
+                    break;
+                case R.id.button_22:
+                    button = button_22;
+                    position = 8;
+                    break;
+            }
+
+            if (isValidPosition(position)) {
+
+                board[position] = HUMAN;
+
+                button.setImageResource(R.drawable.android_logo);
+
+                if (checkWin(HUMAN)) {
+                    Toast.makeText(this, "Human wins", Toast.LENGTH_LONG).show();
+                } else if (checkWin(COMPUTER)) {
+                    Toast.makeText(this, "Computer wins", Toast.LENGTH_LONG).show();
+                }
+
+//                if (gameIsActive)
+//                    computerTurn();
+
+            } else {
+                Toast.makeText(this, "Position already taken", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    public void takeTurn(ImageButton button) {
-        if (turn == HUMAN) {
-            button.setImageResource(R.drawable.android_logo);
+    public void computerTurn() {
+        int position;
+        ImageButton[] buttons = {button_00, button_01, button_02, button_10, button_11, button_12, button_20, button_21, button_22};
+
+        do {
+            Random r = new Random();
+            position = r.nextInt(9);
+        } while(isValidPosition(position));
+
+        ImageButton button = buttons[position];
+        button.setImageResource(R.drawable.apple_logo);
+    }
+
+    boolean isValidPosition(int position) {
+        return board[position] == EMPTY;
+    }
+
+    public Boolean checkWin(int player) {
+        for (int i = 0; i < 8; i++) {
+            if (board[wins[i][0]] == player &&
+                    board[wins[i][1]] == player &&
+                    board[wins[i][2]] == player) {
+                gameIsActive = false;
+                return true;
+            }
         }
-        else {
-            button.setImageResource(R.drawable.apple_logo);
-        }
+        return false;
     }
 }
