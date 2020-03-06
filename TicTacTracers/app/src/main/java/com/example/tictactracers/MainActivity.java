@@ -27,9 +27,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button resetGame;
     Button resetStats;
 
-    Integer turn = 0;
+    final int EMPTY = 0;
+    final int HUMAN = 1;
+    final int COMPUTER = 2;
 
-    @Override
+    int turn = HUMAN;
+
+    int[] board = new int[9];
+
+    int[][] wins = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+
+    public Boolean checkWin(int player) {
+        for (int i = 0; i < 8; i++) {
+            if (board[wins[i][0]] == player &&
+                    board[wins[i][0]] == player &&
+                    board[wins[i][0]] == player) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -81,43 +101,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button_00:
                 takeTurn(button_00);
+                board[0] = turn;
                 break;
             case R.id.button_01:
                 takeTurn(button_01);
+                board[1] = turn;
                 break;
             case R.id.button_02:
                 takeTurn(button_02);
+                board[2] = turn;
                 break;
             case R.id.button_10:
                 takeTurn(button_10);
+                board[3] = turn;
                 break;
             case R.id.button_11:
                 takeTurn(button_11);
+                board[4] = turn;
                 break;
             case R.id.button_12:
                 takeTurn(button_12);
+                board[5] = turn;
                 break;
             case R.id.button_20:
                 takeTurn(button_20);
+                board[6] = turn;
                 break;
             case R.id.button_21:
                 takeTurn(button_21);
+                board[7] = turn;
                 break;
             case R.id.button_22:
                 takeTurn(button_22);
+                board[8] = turn;
                 break;
         }
-        if (turn == 0) { turn = 1; }
-        else { turn = 0; }
+        if (turn == HUMAN) {
+            turn = COMPUTER;
+        }
+        else {
+            turn = HUMAN;
+        }
     }
 
     public void takeTurn(ImageButton button) {
-        if (turn == 0) {
+        if (turn == HUMAN) {
             button.setImageResource(R.drawable.android_logo);
         }
         else {
             button.setImageResource(R.drawable.apple_logo);
         }
     }
-
 }
