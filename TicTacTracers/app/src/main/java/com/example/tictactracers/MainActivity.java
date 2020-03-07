@@ -146,18 +146,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 button.setImageResource(R.drawable.android_logo);
 
-                if (checkWin(HUMAN)) {
+                if (checkWin(HUMAN))
                     Toast.makeText(this, "Human wins", Toast.LENGTH_LONG).show();
-                } else if (checkWin(COMPUTER)) {
-                    Toast.makeText(this, "Computer wins", Toast.LENGTH_LONG).show();
+
+                if (gameIsActive) {
+                    computerTurn();
                 }
 
-//                if (gameIsActive)
-//                    computerTurn();
+                if (checkWin(COMPUTER))
+                    Toast.makeText(this, "Computer wins", Toast.LENGTH_LONG).show();
 
-            } else {
+
+            } else
                 Toast.makeText(this, "Position already taken", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
@@ -168,10 +169,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         do {
             Random r = new Random();
             position = r.nextInt(9);
-        } while(isValidPosition(position));
+        } while(!isValidPosition(position));
 
         ImageButton button = buttons[position];
         button.setImageResource(R.drawable.apple_logo);
+        board[position] = COMPUTER;
     }
 
     boolean isValidPosition(int position) {
