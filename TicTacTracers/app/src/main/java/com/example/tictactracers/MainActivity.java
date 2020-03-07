@@ -1,11 +1,15 @@
 package com.example.tictactracers;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -123,6 +127,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.settingsOption):
+                Toast.makeText(this, "opening up settings", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return true;
+    }
+
+    @Override
     public void onClick(View v) {
 
         if (gameIsActive) {
@@ -199,6 +220,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             } else
                 Toast.makeText(this, "Position already taken", Toast.LENGTH_SHORT).show();
+
+            if (boardIsFull() && gameIsActive) {
+                gameIsActive = false;
+                Toast.makeText(this, "No winner", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -218,6 +244,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             humanWinsPercentTextView.setText(humanWinsPercent + "%");
             computerWinsPercentTextView.setText(computerWinsPercent + "%");
         }
+    }
+
+    public boolean boardIsFull() {
+        for (int pos : board) {
+            if (pos == EMPTY)
+                return false;
+        }
+        return true;
     }
 
     public void computerTurn() {
