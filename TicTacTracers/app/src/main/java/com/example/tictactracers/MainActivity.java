@@ -16,6 +16,17 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+    }
+
+    TextView gamesPlayedTextView;
+    TextView humanWinsTextView;
+    TextView humanWinsPercentTextView;
+    TextView computerWinsTextView;
+    TextView computerWinsPercentTextView;
+
     ImageButton button_00;
     ImageButton button_01;
     ImageButton button_02;
@@ -30,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button resetStats;
 
     boolean gameIsActive = true;
+    int gamesPlayed = 0;
+    int humanWins = 0;
+    int computerWins = 0;
 
     final int EMPTY = 0;
     final int HUMAN = 1;
@@ -51,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resetGame = findViewById(R.id.resetGame);
         resetStats = findViewById(R.id.resetStats);
 
+        gamesPlayedTextView = findViewById(R.id.gamesPlayed);
+        humanWinsTextView = findViewById(R.id.humanWins);
+        humanWinsPercentTextView = findViewById(R.id.humanWinsPercent);
+        computerWinsTextView = findViewById(R.id.computerWins);
+        computerWinsPercentTextView = findViewById(R.id.computerWinsPercent);
+
         resetGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for (int i = 0; i < 9; i++) {
                     board[i] = EMPTY;
                 }
-
                 gameIsActive = true;
             }
         });
@@ -146,16 +165,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 button.setImageResource(R.drawable.android_logo);
 
-                if (checkWin(HUMAN))
+                if (checkWin(HUMAN)) {
                     Toast.makeText(this, "Human wins", Toast.LENGTH_LONG).show();
+                    humanWins = humanWins + 1;
+                    humanWinsTextView.setText(Integer.toString(humanWins));
+                    if (gamesPlayed == 0)
+                        humanWinsPercentTextView.setText("100%");
+                    else
+                        humanWinsPercentTextView.setText(Integer.toString(humanWins/gamesPlayed));
+                    gamesPlayed = gamesPlayed + 1;
+                    gamesPlayedTextView.setText(Integer.toString(gamesPlayed));
+                }
 
                 if (gameIsActive) {
                     computerTurn();
                 }
 
-                if (checkWin(COMPUTER))
+                if (checkWin(COMPUTER)) {
                     Toast.makeText(this, "Computer wins", Toast.LENGTH_LONG).show();
-
+                    computerWins = computerWins + 1;
+                    computerWinsTextView.setText(Integer.toString(computerWins));
+                    if (gamesPlayed == 0)
+                        computerWinsPercentTextView.setText("100%");
+                    else
+                        computerWinsPercentTextView.setText(Integer.toString(computerWins/gamesPlayed));
+                    gamesPlayed = gamesPlayed + 1;
+                    gamesPlayedTextView.setText(Integer.toString(gamesPlayed));
+                }
 
             } else
                 Toast.makeText(this, "Position already taken", Toast.LENGTH_SHORT).show();
