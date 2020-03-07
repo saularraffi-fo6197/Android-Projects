@@ -16,11 +16,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-    }
-
     TextView gamesPlayedTextView;
     TextView humanWinsTextView;
     TextView humanWinsPercentTextView;
@@ -169,12 +164,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "Human wins", Toast.LENGTH_LONG).show();
                     humanWins = humanWins + 1;
                     humanWinsTextView.setText(Integer.toString(humanWins));
-                    if (gamesPlayed == 0)
-                        humanWinsPercentTextView.setText("100%");
-                    else
-                        humanWinsPercentTextView.setText(Integer.toString(humanWins/gamesPlayed));
                     gamesPlayed = gamesPlayed + 1;
                     gamesPlayedTextView.setText(Integer.toString(gamesPlayed));
+                    updateScore(HUMAN);
                 }
 
                 if (gameIsActive) {
@@ -185,16 +177,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "Computer wins", Toast.LENGTH_LONG).show();
                     computerWins = computerWins + 1;
                     computerWinsTextView.setText(Integer.toString(computerWins));
-                    if (gamesPlayed == 0)
-                        computerWinsPercentTextView.setText("100%");
-                    else
-                        computerWinsPercentTextView.setText(Integer.toString(computerWins/gamesPlayed));
                     gamesPlayed = gamesPlayed + 1;
                     gamesPlayedTextView.setText(Integer.toString(gamesPlayed));
+                    updateScore(COMPUTER);
                 }
 
             } else
                 Toast.makeText(this, "Position already taken", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void updateScore(int winner) {
+        int humanWinsPercent = 0;
+        int computerWinsPercent = 0;
+
+        if (gamesPlayed == 0) {
+            if (winner == HUMAN)
+                humanWinsPercentTextView.setText("100%");
+            else
+                computerWinsPercentTextView.setText("100%");
+        }
+        else {
+            humanWinsPercent = (int)(humanWins/(double)gamesPlayed*100);
+            computerWinsPercent = (int)(computerWins/(double) gamesPlayed*100);
+            humanWinsPercentTextView.setText(humanWinsPercent + "%");
+            computerWinsPercentTextView.setText(computerWinsPercent + "%");
         }
     }
 
