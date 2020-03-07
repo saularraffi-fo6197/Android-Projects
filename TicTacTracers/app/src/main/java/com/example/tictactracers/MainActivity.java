@@ -86,6 +86,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        resetStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gamesPlayed = 0;
+                humanWins = 0;
+                computerWins = 0;
+
+                gamesPlayedTextView.setText("0");
+                humanWinsTextView.setText("0");
+                computerWinsTextView.setText("0");
+                humanWinsPercentTextView.setText("0%");
+                computerWinsPercentTextView.setText("0%");
+            }
+        });
+
         button_00 = findViewById(R.id.button_00);
         button_01 = findViewById(R.id.button_01);
         button_02 = findViewById(R.id.button_02);
@@ -161,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 button.setImageResource(R.drawable.android_logo);
 
                 if (checkWin(HUMAN)) {
-                    Toast.makeText(this, "Human wins", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "You win!", Toast.LENGTH_LONG).show();
                     humanWins = humanWins + 1;
                     humanWinsTextView.setText(Integer.toString(humanWins));
                     gamesPlayed = gamesPlayed + 1;
