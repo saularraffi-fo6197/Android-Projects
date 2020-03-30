@@ -1,5 +1,7 @@
 package com.example.superspanners;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +41,21 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this, "Showing about page", Toast.LENGTH_LONG).show();
+
+            AlertDialog.Builder about = new AlertDialog.Builder(this);
+            about.setTitle("About");
+            about.setMessage("App name: Super Spanners \nAuthor: Saular Raffi \nVersion: 1.0");
+            about.setCancelable(true);
+            about.setNeutralButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = about.create();
+            alert.show();
+
             return true;
         }
 
