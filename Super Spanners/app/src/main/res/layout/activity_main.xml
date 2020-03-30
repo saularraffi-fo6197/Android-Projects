@@ -53,7 +53,7 @@
                     android:text="Lane"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:gravity="center">
                 </TextView>
 
@@ -64,7 +64,7 @@
                     android:text="Sign"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:gravity="center">
                 </TextView>
 
@@ -75,7 +75,7 @@
                     android:text="Queue"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:gravity="center">
                 </TextView>
 
@@ -88,6 +88,50 @@
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="25"
+                    android:text="1"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp">
+                </TextView>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="Closed"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:gravity="center">
+                </Button>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="25"
+                    android:text="0"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:background="@android:color/holo_green_light"
+                    android:layout_marginBottom="5dp">
+                </TextView>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -95,6 +139,14 @@
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -102,6 +154,14 @@
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -109,6 +169,14 @@
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -116,6 +184,14 @@
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
