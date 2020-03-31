@@ -21,29 +21,23 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView laneQueue1;
-    TextView laneQueue2;
-    TextView laneQueue3;
-    TextView laneQueue4;
-    TextView laneQueue5;
+    private TextView laneQueue1;
+    private TextView laneQueue2;
+    private TextView laneQueue3;
+    private TextView laneQueue4;
+    private TextView laneQueue5;
 
-    Button laneSign1;
-    Button laneSign2;
-    Button laneSign3;
-    Button laneSign4;
-    Button laneSign5;
+    private Button laneSign1;
+    private Button laneSign2;
+    private Button laneSign3;
+    private Button laneSign4;
+    private Button laneSign5;
 
-    Button startSim;
-    Button stopSim;
-    Button resetSim;
+    private TextView incomingCars;
+    private TextView incomingTrucks;
 
-    SeekBar carSeekBar;
-    SeekBar truckSeekBar;
-
-    TextView incomingCars;
-    TextView incomingTrucks;
-
-    int[] laneStatus = {0,0,0,0,0};
+    private int[] laneStatus = {0,0,0,0,0};
+    private int[] laneQueues = {0,0,0,0,0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +58,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         laneSign4 = findViewById(R.id.laneSign4);
         laneSign5 = findViewById(R.id.laneSign5);
 
-        startSim = findViewById(R.id.startSimButton);
-        stopSim = findViewById(R.id.stopSimButton);
-        resetSim = findViewById(R.id.resetSimButton);
+        final Button[] laneSigns = {laneSign1, laneSign2, laneSign3, laneSign4, laneSign5};
 
-        carSeekBar = findViewById(R.id.carSeekBar);
-        truckSeekBar = findViewById(R.id.truckSeekBar);
+        Button startSim = findViewById(R.id.startSimButton);
+        Button stopSim = findViewById(R.id.stopSimButton);
+        Button resetSim = findViewById(R.id.resetSimButton);
+
+        final SeekBar carSeekBar = findViewById(R.id.carSeekBar);
+        final SeekBar truckSeekBar = findViewById(R.id.truckSeekBar);
 
         incomingCars = findViewById(R.id.incomingCars);
         incomingTrucks = findViewById(R.id.incomingTrucks);
@@ -79,6 +75,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         laneSign3.setOnClickListener(this);
         laneSign4.setOnClickListener(this);
         laneSign5.setOnClickListener(this);
+
+        resetSim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carSeekBar.setProgress(0);
+                truckSeekBar.setProgress(0);
+
+                incomingCars.setText("0");
+                incomingTrucks.setText("0");
+
+                laneQueue1.setText("0");
+                laneQueue2.setText("0");
+                laneQueue3.setText("0");
+                laneQueue4.setText("0");
+                laneQueue5.setText("0");
+
+                for (int i=0; i<5; i++) {
+                    laneQueues[i] = 0;
+                    laneStatus[i] = 0;
+                    laneSigns[i].setText("Closed");
+                    laneSigns[i].setTextColor(Color.parseColor("#d10000"));
+                }
+            }
+        });
 
         carSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
