@@ -19,6 +19,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView laneQueue1;
@@ -38,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private int[] laneStatus = {0,0,0,0,0};
     private int[] laneQueues = {0,0,0,0,0};
+
+    private Timer timer;
+    private TimerTask timerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         laneSign3.setOnClickListener(this);
         laneSign4.setOnClickListener(this);
         laneSign5.setOnClickListener(this);
+
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                laneQueue1.setText("5");
+            }
+        };
+
+        startSim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // crashes app
+                startTimerTask();
+            }
+        });
 
         resetSim.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +193,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             button.setText("Closed");
             button.setTextColor(Color.parseColor("#d10000"));
         }
+    }
+
+    public void startTimerTask() {
+        timer = new Timer();
+        timer.schedule(timerTask, 1000, 1000);
     }
 
     @Override
