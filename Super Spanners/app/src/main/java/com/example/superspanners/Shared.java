@@ -15,6 +15,8 @@ public enum Shared
 {
     Data;
 
+    public final int THREAD_PAUSE = 1;
+
     public final int carsProcessRate = 2;
     public final int trucksProcessRate = 1;
 

@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int[] laneQueues = {0,0,0,0,0};
 
     private Timer timer;
-    private TimerTask timerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         laneSign3Btn.setOnClickListener(this);
         laneSign4Btn.setOnClickListener(this);
         laneSign5Btn.setOnClickListener(this);
-
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                laneQueue1TextView.setText("5");
-            }
-        };
 
         startSim.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,24 +193,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void startTimerTask() {
         timer = new Timer();
-        timer.schedule(timerTask, 1000, 1000);
+        timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE, Shared.Data.THREAD_PAUSE);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
             AlertDialog.Builder about = new AlertDialog.Builder(this);
@@ -237,7 +224,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
