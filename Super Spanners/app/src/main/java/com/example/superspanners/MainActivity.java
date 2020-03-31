@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // crashes app
+                // Something in TimerTasks.java makes the app crash
                 startTimerTask();
             }
         });
@@ -199,6 +199,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void startTimerTask() {
         timer = new Timer();
         timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE, Shared.Data.THREAD_PAUSE);
+
+        Toast.makeText(this, "Starting simulation", Toast.LENGTH_SHORT).show();
     }
 
     @Override
