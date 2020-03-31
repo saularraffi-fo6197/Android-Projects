@@ -23,22 +23,32 @@ public class TimerTasks extends TimerTask {
 
     private void carsIn() {
         System.out.println("cars in");
-        int incomingCarsPerCarLane = getOpenCarLaneCount() / Shared.Data.carEntryRate;
-        populateCarLanes(incomingCarsPerCarLane);
+        if (Shared.Data.carEntryRate != 0) {
+            int incomingCarsPerCarLane = getOpenCarLaneCount() / Shared.Data.carEntryRate;
+            populateCarLanes(incomingCarsPerCarLane);
+        }
     }
 
     private void trucksIn() {
         System.out.println("trucks in");
-        int incomingTrucksPerCarLane = getOpenTruckLaneCount() / Shared.Data.truckEntryRate;
-        populateTruckLanes(incomingTrucksPerCarLane);
+        if (Shared.Data.truckEntryRate != 0) {
+            int incomingTrucksPerCarLane = getOpenTruckLaneCount() / Shared.Data.truckEntryRate;
+            populateTruckLanes(incomingTrucksPerCarLane);
+        }
     }
 
     private void carsOut() {
-        System.out.println("cars out");
+        for (int i = 0; i < 5; i++) {
+            if (Shared.Data.laneInfo[i][0] == 1)
+                Shared.Data.laneInfo[i][1] = Shared.Data.laneInfo[i][1] - Shared.Data.carsProcessRate;
+        }
     }
 
     private void trucksOut() {
-        System.out.println("trucks out");
+        for (int i = 0; i < 5; i++) {
+            if (Shared.Data.laneInfo[i][0] == 2)
+                Shared.Data.laneInfo[i][1] = Shared.Data.laneInfo[i][1] - Shared.Data.trucksProcessRate;
+        }
     }
 
     private int getOpenCarLaneCount() {
