@@ -1,16 +1,5 @@
-//====================================================================
-//
-// Application: Reservation Roster
-// Class:       Shared
-// Description:
-//   This Android application class holds data shared among threads.
-//
-//====================================================================
 package com.example.superspanners;
 
-//--------------------------------------------------------------------
-// enum Shared
-//--------------------------------------------------------------------
 public enum Shared
 {
     Data;
