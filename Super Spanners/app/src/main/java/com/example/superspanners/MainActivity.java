@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button laneSign4Btn;
     private Button laneSign5Btn;
 
-    private TextView incomingCars;
-    private TextView incomingTrucks;
+    private TextView incomingCarsTextView;
+    private TextView incomingTrucksTextView;
 
     private int[] laneStatus = {0,0,0,0,0};
     private int[] laneQueues = {0,0,0,0,0};
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final SeekBar carSeekBar = findViewById(R.id.carSeekBar);
         final SeekBar truckSeekBar = findViewById(R.id.truckSeekBar);
 
-        incomingCars = findViewById(R.id.incomingCars);
-        incomingTrucks = findViewById(R.id.incomingTrucks);
+        incomingCarsTextView = findViewById(R.id.incomingCars);
+        incomingTrucksTextView = findViewById(R.id.incomingTrucks);
 
         laneSign1Btn.setOnClickListener(this);
         laneSign2Btn.setOnClickListener(this);
@@ -102,11 +102,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resetSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Shared.Data.carsEnteringUS = 0;
+                Shared.Data.trucksEnteringUS = 0;
+                Shared.Data.numberOfCarEntryLanes = 0;
+                Shared.Data.numberOfTruckEntryLanes = 0;
+
                 carSeekBar.setProgress(0);
                 truckSeekBar.setProgress(0);
 
-                incomingCars.setText("0");
-                incomingTrucks.setText("0");
+                incomingCarsTextView.setText("0");
+                incomingTrucksTextView.setText("0");
 
                 for (int i=0; i<5; i++) {
                     laneQueues[i] = 0;
@@ -114,6 +119,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     laneSigns[i].setText("Closed");
                     laneQueuesTextViews[i].setText("0");
                     laneSigns[i].setTextColor(Color.parseColor("#d10000"));
+                    Shared.Data.laneInfo[i][0] = 0;
+                    Shared.Data.laneInfo[i][1] = 0;
                 }
             }
         });
@@ -121,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         carSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                incomingCars.setText(Integer.toString(progress));
+                incomingCarsTextView.setText(Integer.toString(progress));
             }
 
             @Override
@@ -138,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         truckSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                incomingTrucks.setText(Integer.toString(progress));
+                incomingTrucksTextView.setText(Integer.toString(progress));
             }
 
             @Override
