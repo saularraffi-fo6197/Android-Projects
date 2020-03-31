@@ -24,17 +24,17 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView laneQueue1;
-    private TextView laneQueue2;
-    private TextView laneQueue3;
-    private TextView laneQueue4;
-    private TextView laneQueue5;
+    private TextView laneQueue1TextView;
+    private TextView laneQueue2TextView;
+    private TextView laneQueue3TextView;
+    private TextView laneQueue4TextView;
+    private TextView laneQueue5TextView;
 
-    private Button laneSign1;
-    private Button laneSign2;
-    private Button laneSign3;
-    private Button laneSign4;
-    private Button laneSign5;
+    private Button laneSign1Btn;
+    private Button laneSign2Btn;
+    private Button laneSign3Btn;
+    private Button laneSign4Btn;
+    private Button laneSign5Btn;
 
     private TextView incomingCars;
     private TextView incomingTrucks;
@@ -52,19 +52,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        laneQueue1 = findViewById(R.id.laneQueue1);
-        laneQueue2 = findViewById(R.id.laneQueue2);
-        laneQueue3 = findViewById(R.id.laneQueue3);
-        laneQueue4 = findViewById(R.id.laneQueue4);
-        laneQueue5 = findViewById(R.id.laneQueue5);
+        laneQueue1TextView = findViewById(R.id.laneQueue1);
+        laneQueue2TextView = findViewById(R.id.laneQueue2);
+        laneQueue3TextView = findViewById(R.id.laneQueue3);
+        laneQueue4TextView = findViewById(R.id.laneQueue4);
+        laneQueue5TextView = findViewById(R.id.laneQueue5);
 
-        laneSign1 = findViewById(R.id.laneSign1);
-        laneSign2 = findViewById(R.id.laneSign2);
-        laneSign3 = findViewById(R.id.laneSign3);
-        laneSign4 = findViewById(R.id.laneSign4);
-        laneSign5 = findViewById(R.id.laneSign5);
+        laneSign1Btn = findViewById(R.id.laneSign1);
+        laneSign2Btn = findViewById(R.id.laneSign2);
+        laneSign3Btn = findViewById(R.id.laneSign3);
+        laneSign4Btn = findViewById(R.id.laneSign4);
+        laneSign5Btn = findViewById(R.id.laneSign5);
 
-        final Button[] laneSigns = {laneSign1, laneSign2, laneSign3, laneSign4, laneSign5};
+        final Button[] laneSigns = {laneSign1Btn, laneSign2Btn, laneSign3Btn, laneSign4Btn, laneSign5Btn};
+        final TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
+                laneQueue4TextView, laneQueue5TextView};
 
         Button startSim = findViewById(R.id.startSimButton);
         Button stopSim = findViewById(R.id.stopSimButton);
@@ -76,16 +78,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         incomingCars = findViewById(R.id.incomingCars);
         incomingTrucks = findViewById(R.id.incomingTrucks);
 
-        laneSign1.setOnClickListener(this);
-        laneSign2.setOnClickListener(this);
-        laneSign3.setOnClickListener(this);
-        laneSign4.setOnClickListener(this);
-        laneSign5.setOnClickListener(this);
+        laneSign1Btn.setOnClickListener(this);
+        laneSign2Btn.setOnClickListener(this);
+        laneSign3Btn.setOnClickListener(this);
+        laneSign4Btn.setOnClickListener(this);
+        laneSign5Btn.setOnClickListener(this);
 
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                laneQueue1.setText("5");
+                laneQueue1TextView.setText("5");
             }
         };
 
@@ -106,16 +108,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 incomingCars.setText("0");
                 incomingTrucks.setText("0");
 
-                laneQueue1.setText("0");
-                laneQueue2.setText("0");
-                laneQueue3.setText("0");
-                laneQueue4.setText("0");
-                laneQueue5.setText("0");
-
                 for (int i=0; i<5; i++) {
                     laneQueues[i] = 0;
                     laneStatus[i] = 0;
                     laneSigns[i].setText("Closed");
+                    laneQueuesTextViews[i].setText("0");
                     laneSigns[i].setTextColor(Color.parseColor("#d10000"));
                 }
             }
@@ -160,19 +157,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.laneSign1:
-                changeLaneStatus(0, laneSign1);
+                changeLaneStatus(0, laneSign1Btn);
                 break;
             case R.id.laneSign2:
-                changeLaneStatus(1, laneSign2);
+                changeLaneStatus(1, laneSign2Btn);
                 break;
             case R.id.laneSign3:
-                changeLaneStatus(2, laneSign3);
+                changeLaneStatus(2, laneSign3Btn);
                 break;
             case R.id.laneSign4:
-                changeLaneStatus(3, laneSign4);
+                changeLaneStatus(3, laneSign4Btn);
                 break;
             case R.id.laneSign5:
-                changeLaneStatus(4, laneSign5);
+                changeLaneStatus(4, laneSign5Btn);
                 break;
         }
     }
