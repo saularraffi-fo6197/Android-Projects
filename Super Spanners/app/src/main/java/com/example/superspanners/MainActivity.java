@@ -11,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private int[] laneStatus = {0,0,0,0,0};
     private int[] laneQueues = {0,0,0,0,0};
+    private TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
+            laneQueue4TextView, laneQueue5TextView};
 
     private Timer timer;
 
@@ -64,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         laneSign5Btn = findViewById(R.id.laneSign5);
 
         final Button[] laneSigns = {laneSign1Btn, laneSign2Btn, laneSign3Btn, laneSign4Btn, laneSign5Btn};
-        final TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
-                laneQueue4TextView, laneQueue5TextView};
 
         Button startSim = findViewById(R.id.startSimButton);
         Button stopSim = findViewById(R.id.stopSimButton);
@@ -86,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Something in TimerTasks.java makes the app crash
                 startTimerTask();
             }
         });
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     laneQueues[i] = 0;
                     laneStatus[i] = 0;
                     laneSigns[i].setText("Closed");
-                    laneQueuesTextViews[i].setText("0");
+                    laneQueuesTextViews[i].setText("0"); // TODO: This is making the app crash
                     laneSigns[i].setTextColor(Color.parseColor("#d10000"));
                     Shared.Data.laneInfo[i][0] = 0;
                     Shared.Data.laneInfo[i][1] = 0;
@@ -199,9 +200,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void startTimerTask() {
         timer = new Timer();
         timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE, Shared.Data.THREAD_PAUSE);
-
-        Toast.makeText(this, "Starting simulation", Toast.LENGTH_SHORT).show();
     }
+
+    public Handler updateReservations = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            for (int i = 0; i < 5; i++) {
+                laneQueuesTextViews[1].setText(Integer.toString(Shared.Data.laneInfo[i][1]));
+            }
+        }
+
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
