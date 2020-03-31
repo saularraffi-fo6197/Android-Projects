@@ -2,6 +2,7 @@ package com.example.superspanners;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,7 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView laneQueue1;
     TextView laneQueue2;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView incomingCars;
     TextView incomingTrucks;
+
+    int[] laneStatus = {0,0,0,0,0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,85 @@ public class MainActivity extends AppCompatActivity {
 
         incomingCars = findViewById(R.id.incomingCars);
         incomingTrucks = findViewById(R.id.incomingTrucks);
+
+        laneSign1.setOnClickListener(this);
+        laneSign2.setOnClickListener(this);
+        laneSign3.setOnClickListener(this);
+        laneSign4.setOnClickListener(this);
+        laneSign5.setOnClickListener(this);
+
+        carSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                incomingCars.setText(Integer.toString(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        truckSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                incomingTrucks.setText(Integer.toString(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.laneSign1:
+                changeLaneStatus(0, laneSign1);
+                break;
+            case R.id.laneSign2:
+                changeLaneStatus(1, laneSign2);
+                break;
+            case R.id.laneSign3:
+                changeLaneStatus(2, laneSign3);
+                break;
+            case R.id.laneSign4:
+                changeLaneStatus(3, laneSign4);
+                break;
+            case R.id.laneSign5:
+                changeLaneStatus(4, laneSign5);
+                break;
+        }
+    }
+
+    public void changeLaneStatus(int lane, Button button) {
+        if (laneStatus[lane] == 0) {
+            laneStatus[lane] = 1;
+            button.setText("Cars Only");
+            button.setTextColor(Color.parseColor("#4196db"));
+        }
+        else if (laneStatus[lane] == 1) {
+            laneStatus[lane] = 2;
+            button.setText("Trucks Only");
+            button.setTextColor(Color.parseColor("#4196db"));
+        }
+        else {
+            laneStatus[lane] = 0;
+            button.setText("Closed");
+            button.setTextColor(Color.parseColor("#d10000"));
+        }
     }
 
     @Override
