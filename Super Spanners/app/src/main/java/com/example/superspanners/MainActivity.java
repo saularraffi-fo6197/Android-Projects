@@ -13,9 +13,34 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView laneQueue1;
+    TextView laneQueue2;
+    TextView laneQueue3;
+    TextView laneQueue4;
+    TextView laneQueue5;
+
+    Button laneSign1;
+    Button laneSign2;
+    Button laneSign3;
+    Button laneSign4;
+    Button laneSign5;
+
+    Button startSim;
+    Button stopSim;
+    Button resetSim;
+
+    SeekBar carSeekBar;
+    SeekBar truckSeekBar;
+
+    TextView incomingCars;
+    TextView incomingTrucks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +48,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        laneQueue1 = findViewById(R.id.laneQueue1);
+        laneQueue2 = findViewById(R.id.laneQueue2);
+        laneQueue3 = findViewById(R.id.laneQueue3);
+        laneQueue4 = findViewById(R.id.laneQueue4);
+        laneQueue5 = findViewById(R.id.laneQueue5);
+
+        laneSign1 = findViewById(R.id.laneSign1);
+        laneSign2 = findViewById(R.id.laneSign2);
+        laneSign3 = findViewById(R.id.laneSign3);
+        laneSign4 = findViewById(R.id.laneSign4);
+        laneSign5 = findViewById(R.id.laneSign5);
+
+        startSim = findViewById(R.id.startSimButton);
+        stopSim = findViewById(R.id.stopSimButton);
+        resetSim = findViewById(R.id.resetSimButton);
+
+        carSeekBar = findViewById(R.id.carSeekBar);
+        truckSeekBar = findViewById(R.id.truckSeekBar);
+
+        incomingCars = findViewById(R.id.incomingCars);
+        incomingTrucks = findViewById(R.id.incomingTrucks);
     }
 
     @Override
