@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         carSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Shared.Data.carsEnteringUS = progress;
                 incomingCarsTextView.setText(Integer.toString(progress));
             }
 
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         truckSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Shared.Data.trucksEnteringUS = progress;
                 incomingTrucksTextView.setText(Integer.toString(progress));
             }
 
@@ -176,16 +178,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void changeLaneStatus(int lane, Button button) {
         if (laneStatus[lane] == 0) {
             laneStatus[lane] = 1;
+            Shared.Data.laneInfo[lane][1] = 1;
             button.setText("Cars Only");
             button.setTextColor(Color.parseColor("#4196db"));
         }
         else if (laneStatus[lane] == 1) {
             laneStatus[lane] = 2;
+            Shared.Data.laneInfo[lane][1] = 2;
             button.setText("Trucks Only");
             button.setTextColor(Color.parseColor("#4196db"));
         }
         else {
             laneStatus[lane] = 0;
+            Shared.Data.laneInfo[lane][1] = 0;
             button.setText("Closed");
             button.setTextColor(Color.parseColor("#d10000"));
         }

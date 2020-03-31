@@ -15,5 +15,6 @@ public enum Shared
     public int numberOfCarEntryLanes = 0;
     public int numberOfTruckEntryLanes = 0;
 
+    // lane status (index 0) and vehicle count (index 1) for each lane
     public int[][] laneInfo = {{0,0},{0,0},{0,0},{0,0},{0,0}};
 }
