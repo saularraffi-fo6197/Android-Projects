@@ -9,8 +9,8 @@ public enum Shared
     public final int carsProcessRate = 2;
     public final int trucksProcessRate = 1;
 
-    public int carsEnteringUS = 0;
-    public int trucksEnteringUS = 0;
+    public int carEntryRate = 0;
+    public int truckEntryRate = 0;
 
     public int numberOfCarEntryLanes = 0;
     public int numberOfTruckEntryLanes = 0;

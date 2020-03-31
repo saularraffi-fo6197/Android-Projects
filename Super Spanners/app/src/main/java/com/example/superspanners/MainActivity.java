@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button laneSign4Btn;
     private Button laneSign5Btn;
 
-    private TextView incomingCarsTextView;
-    private TextView incomingTrucksTextView;
+    private TextView carEntryRateTextView;
+    private TextView truckEntryRateTextView;
 
     private int[] laneStatus = {0,0,0,0,0};
     private int[] laneQueues = {0,0,0,0,0};
@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final SeekBar carSeekBar = findViewById(R.id.carSeekBar);
         final SeekBar truckSeekBar = findViewById(R.id.truckSeekBar);
 
-        incomingCarsTextView = findViewById(R.id.incomingCars);
-        incomingTrucksTextView = findViewById(R.id.incomingTrucks);
+        carEntryRateTextView = findViewById(R.id.carEntryRate);
+        truckEntryRateTextView = findViewById(R.id.truckEntryRate);
 
         laneSign1Btn.setOnClickListener(this);
         laneSign2Btn.setOnClickListener(this);
@@ -94,16 +94,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resetSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Shared.Data.carsEnteringUS = 0;
-                Shared.Data.trucksEnteringUS = 0;
+                Shared.Data.carEntryRate = 0;
+                Shared.Data.truckEntryRate = 0;
                 Shared.Data.numberOfCarEntryLanes = 0;
                 Shared.Data.numberOfTruckEntryLanes = 0;
 
                 carSeekBar.setProgress(0);
                 truckSeekBar.setProgress(0);
 
-                incomingCarsTextView.setText("0");
-                incomingTrucksTextView.setText("0");
+                carEntryRateTextView.setText("0");
+                truckEntryRateTextView.setText("0");
 
                 for (int i=0; i<5; i++) {
                     laneQueues[i] = 0;
@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         carSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Shared.Data.carsEnteringUS = progress;
-                incomingCarsTextView.setText(Integer.toString(progress));
+                Shared.Data.carEntryRate = progress;
+                carEntryRateTextView.setText(Integer.toString(progress));
             }
 
             @Override
@@ -138,8 +138,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         truckSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Shared.Data.trucksEnteringUS = progress;
-                incomingTrucksTextView.setText(Integer.toString(progress));
+                Shared.Data.truckEntryRate = progress;
+                truckEntryRateTextView.setText(Integer.toString(progress));
             }
 
             @Override
@@ -178,19 +178,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void changeLaneStatus(int lane, Button button) {
         if (laneStatus[lane] == 0) {
             laneStatus[lane] = 1;
-            Shared.Data.laneInfo[lane][1] = 1;
+            Shared.Data.laneInfo[lane][0] = 1;
             button.setText("Cars Only");
             button.setTextColor(Color.parseColor("#4196db"));
         }
         else if (laneStatus[lane] == 1) {
             laneStatus[lane] = 2;
-            Shared.Data.laneInfo[lane][1] = 2;
+            Shared.Data.laneInfo[lane][0] = 2;
             button.setText("Trucks Only");
             button.setTextColor(Color.parseColor("#4196db"));
         }
         else {
             laneStatus[lane] = 0;
-            Shared.Data.laneInfo[lane][1] = 0;
+            Shared.Data.laneInfo[lane][0] = 0;
             button.setText("Closed");
             button.setTextColor(Color.parseColor("#d10000"));
         }
