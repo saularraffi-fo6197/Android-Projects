@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Shared.Data.laneInfo[i][0] = 0;
                     Shared.Data.laneInfo[i][1] = 0;
                     laneSigns[i].setText("Closed");
-                    laneQueuesTextViews[i].setText("0"); // TODO: This is making the app crash
+                    laneQueuesTextViews[i].setText("0");
                     laneSigns[i].setTextColor(Color.parseColor("#d10000"));
                     Shared.Data.laneInfo[i][0] = 0;
                     Shared.Data.laneInfo[i][1] = 0;
@@ -204,11 +204,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             final TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
                     laneQueue4TextView, laneQueue5TextView};
             for (int i = 0; i < 5; i++) {
-                laneQueuesTextViews[1].setText(Integer.toString(Shared.Data.laneInfo[i][1]));
+                // TODO: for some reason, the Shared.Data.laneInfo[i][1] values are crazy high numbers
+//                laneQueuesTextViews[1].setText(Integer.toString(Shared.Data.laneInfo[i][1]));
             }
         }
 
     };
+
+    public void toastTest() {
+        Toast.makeText(this, "Handler invoked", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
