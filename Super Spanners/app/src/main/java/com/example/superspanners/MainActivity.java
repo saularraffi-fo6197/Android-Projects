@@ -113,8 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resetSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getSupportActionBar().setDisplayShowHomeEnabled(true);
-//                getSupportActionBar().setIcon(R.drawable.traffic);
                 Shared.Data.carEntryRate = 0;
                 Shared.Data.truckEntryRate = 0;
                 Shared.Data.numberOfCarEntryLanes = 0;
