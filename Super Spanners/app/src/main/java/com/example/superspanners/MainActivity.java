@@ -41,11 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView carEntryRateTextView;
     private TextView truckEntryRateTextView;
 
-    private int[] laneStatus = {0,0,0,0,0};
-    private int[] laneQueues = {0,0,0,0,0};
-    private TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
-            laneQueue4TextView, laneQueue5TextView};
-
     private Timer timer;
 
     @Override
@@ -68,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         laneSign5Btn = findViewById(R.id.laneSign5);
 
         final Button[] laneSigns = {laneSign1Btn, laneSign2Btn, laneSign3Btn, laneSign4Btn, laneSign5Btn};
+        final TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
+                laneQueue4TextView, laneQueue5TextView};
 
         Button startSim = findViewById(R.id.startSimButton);
         Button stopSim = findViewById(R.id.stopSimButton);
@@ -107,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 truckEntryRateTextView.setText("0");
 
                 for (int i=0; i<5; i++) {
-                    laneQueues[i] = 0;
-                    laneStatus[i] = 0;
+                    Shared.Data.laneInfo[i][0] = 0;
+                    Shared.Data.laneInfo[i][1] = 0;
                     laneSigns[i].setText("Closed");
                     laneQueuesTextViews[i].setText("0"); // TODO: This is making the app crash
                     laneSigns[i].setTextColor(Color.parseColor("#d10000"));
@@ -177,20 +174,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void changeLaneStatus(int lane, Button button) {
-        if (laneStatus[lane] == 0) {
-            laneStatus[lane] = 1;
+        if (Shared.Data.laneInfo[lane][0] == 0) {
             Shared.Data.laneInfo[lane][0] = 1;
             button.setText("Cars Only");
             button.setTextColor(Color.parseColor("#4196db"));
         }
-        else if (laneStatus[lane] == 1) {
-            laneStatus[lane] = 2;
+        else if (Shared.Data.laneInfo[lane][0] == 1) {
             Shared.Data.laneInfo[lane][0] = 2;
             button.setText("Trucks Only");
             button.setTextColor(Color.parseColor("#4196db"));
         }
         else {
-            laneStatus[lane] = 0;
             Shared.Data.laneInfo[lane][0] = 0;
             button.setText("Closed");
             button.setTextColor(Color.parseColor("#d10000"));
@@ -202,11 +196,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE, Shared.Data.THREAD_PAUSE);
     }
 
-    public Handler updateReservations = new Handler()
+    public Handler updateUI = new Handler()
     {
         @Override
         public void handleMessage(Message msg)
         {
+            final TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
+                    laneQueue4TextView, laneQueue5TextView};
             for (int i = 0; i < 5; i++) {
                 laneQueuesTextViews[1].setText(Integer.toString(Shared.Data.laneInfo[i][1]));
             }

@@ -18,21 +18,22 @@ public class TimerTasks extends TimerTask {
         trucksIn();
         carsOut();
         trucksOut();
-        Log.i("MYLOG:", "Running Timer Tasks");
+        parent.updateUI.sendEmptyMessage(0);
+        System.out.println("This is my message");
     }
 
     private void carsIn() {
-        System.out.println("cars in");
-        if (Shared.Data.carEntryRate != 0) {
-            int incomingCarsPerCarLane = getOpenCarLaneCount() / Shared.Data.carEntryRate;
+        int openCarLanes = getOpenCarLaneCount();
+        if (openCarLanes != 0) {
+            int incomingCarsPerCarLane =  Shared.Data.carEntryRate / openCarLanes;
             populateCarLanes(incomingCarsPerCarLane);
         }
     }
 
     private void trucksIn() {
-        System.out.println("trucks in");
-        if (Shared.Data.truckEntryRate != 0) {
-            int incomingTrucksPerCarLane = getOpenTruckLaneCount() / Shared.Data.truckEntryRate;
+        int openTruckLanes = getOpenTruckLaneCount();
+        if (openTruckLanes != 0) {
+            int incomingTrucksPerCarLane =  Shared.Data.truckEntryRate / openTruckLanes;
             populateTruckLanes(incomingTrucksPerCarLane);
         }
     }
