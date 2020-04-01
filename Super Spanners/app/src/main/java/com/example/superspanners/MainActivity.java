@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Timer timer;
 
-    private boolean simulationInProgress = true;
+    private boolean simulationInProgress = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +88,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTimerTask();
-                simulationInProgress = true;
-                toast("Simulation Started");
+                if (!simulationInProgress) {
+                    startTimerTask();
+                    simulationInProgress = true;
+                    toast("Simulation Started");
+                }
+                else {
+                    toast("Simulation already in progress");
+                }
             }
         });
 
@@ -225,14 +230,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             final TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
                     laneQueue4TextView, laneQueue5TextView};
             for (int i = 0; i < 5; i++) {
-                int carsInQueue = Shared.Data.laneInfo[i][1];
-                laneQueuesTextViews[i].setText(Integer.toString(carsInQueue));
+                int vehiclesInQueue = Shared.Data.laneInfo[i][1];
+                laneQueuesTextViews[i].setText(Integer.toString(vehiclesInQueue));
 
-                if (carsInQueue <= 5)
+                if (vehiclesInQueue <= 5)
                     laneQueuesTextViews[i].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.queueGreen));
-                else if (carsInQueue > 5 && carsInQueue <= 25)
+                else if (vehiclesInQueue > 5 && vehiclesInQueue <= 25)
                     laneQueuesTextViews[i].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.queueOrange));
-                else if (carsInQueue > 25)
+                else if (vehiclesInQueue > 25)
                     laneQueuesTextViews[i].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.queueRed));
             }
         }

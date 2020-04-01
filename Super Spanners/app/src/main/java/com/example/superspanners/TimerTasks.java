@@ -39,16 +39,28 @@ public class TimerTasks extends TimerTask {
     }
 
     private void carsOut() {
+        int carsInQueue;
         for (int i = 0; i < 5; i++) {
-            if (Shared.Data.laneInfo[i][0] == 1 && Shared.Data.laneInfo[i][1] != 0)
-                Shared.Data.laneInfo[i][1] = Shared.Data.laneInfo[i][1] - Shared.Data.carsProcessRate;
+            if (Shared.Data.laneInfo[i][0] == 1 && Shared.Data.laneInfo[i][1] != 0) {
+                carsInQueue = Shared.Data.laneInfo[i][1] - Shared.Data.carsProcessRate;
+                if (carsInQueue <= 0)
+                    Shared.Data.laneInfo[i][1] = 0;
+                else
+                    Shared.Data.laneInfo[i][1] = carsInQueue;
+            }
         }
     }
 
     private void trucksOut() {
+        int trucksInQueue;
         for (int i = 0; i < 5; i++) {
-            if (Shared.Data.laneInfo[i][0] == 2 && Shared.Data.laneInfo[i][1] != 0)
-                Shared.Data.laneInfo[i][1] = Shared.Data.laneInfo[i][1] - Shared.Data.trucksProcessRate;
+            if (Shared.Data.laneInfo[i][0] == 2 && Shared.Data.laneInfo[i][1] != 0) {
+                trucksInQueue = Shared.Data.laneInfo[i][1] - Shared.Data.trucksProcessRate;
+                if (trucksInQueue <= 0)
+                    Shared.Data.laneInfo[i][1] = 0;
+                else
+                    Shared.Data.laneInfo[i][1] = trucksInQueue;
+            }
         }
     }
 
