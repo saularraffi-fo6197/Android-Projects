@@ -113,7 +113,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="50"
                     android:text="Closed"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="@color/laneTextRed"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center">
@@ -129,7 +129,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:background="@android:color/holo_green_light"
+                    android:background="@color/queueGreen"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="2.5dp"
                     android:layout_marginEnd="2.5dp">
@@ -168,7 +168,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="50"
                     android:text="Closed"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="@color/laneTextRed"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center">
@@ -184,7 +184,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:background="@android:color/holo_green_light"
+                    android:background="@color/queueGreen"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="2.5dp"
                     android:layout_marginEnd="2.5dp">
@@ -223,7 +223,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="50"
                     android:text="Closed"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="@color/laneTextRed"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center">
@@ -239,7 +239,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:background="@android:color/holo_green_light"
+                    android:background="@color/queueGreen"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="2.5dp"
                     android:layout_marginEnd="2.5dp">
@@ -278,7 +278,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="50"
                     android:text="Closed"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="@color/laneTextRed"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center">
@@ -294,7 +294,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:background="@android:color/holo_green_light"
+                    android:background="@color/queueGreen"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="2.5dp"
                     android:layout_marginEnd="2.5dp">
@@ -333,7 +333,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="50"
                     android:text="Closed"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="@color/laneTextRed"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center">
@@ -349,7 +349,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:background="@android:color/holo_green_light"
+                    android:background="@color/queueGreen"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="2.5dp"
                     android:layout_marginEnd="2.5dp">

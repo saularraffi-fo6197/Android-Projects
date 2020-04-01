@@ -40,14 +40,14 @@ public class TimerTasks extends TimerTask {
 
     private void carsOut() {
         for (int i = 0; i < 5; i++) {
-            if (Shared.Data.laneInfo[i][0] == 1)
+            if (Shared.Data.laneInfo[i][0] == 1 && Shared.Data.laneInfo[i][1] != 0)
                 Shared.Data.laneInfo[i][1] = Shared.Data.laneInfo[i][1] - Shared.Data.carsProcessRate;
         }
     }
 
     private void trucksOut() {
         for (int i = 0; i < 5; i++) {
-            if (Shared.Data.laneInfo[i][0] == 2)
+            if (Shared.Data.laneInfo[i][0] == 2 && Shared.Data.laneInfo[i][1] != 0)
                 Shared.Data.laneInfo[i][1] = Shared.Data.laneInfo[i][1] - Shared.Data.trucksProcessRate;
         }
     }

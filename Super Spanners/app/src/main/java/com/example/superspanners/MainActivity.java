@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.os.Handler;
 import android.os.Message;
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     laneQueuesTextViews[i].setText("0");
                     Shared.Data.laneInfo[i][0] = 0;
                     Shared.Data.laneInfo[i][1] = 0;
+                    laneQueuesTextViews[i].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.queueGreen));
                 }
                 if (simulationInProgress) {
                     toast("Simulation still running");
@@ -196,17 +198,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Shared.Data.laneInfo[lane][0] == 0) {
             Shared.Data.laneInfo[lane][0] = 1;
             button.setText("Cars Only");
-            button.setTextColor(Color.parseColor("#4196db"));
+            button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.laneTextBlue));
         }
         else if (Shared.Data.laneInfo[lane][0] == 1) {
             Shared.Data.laneInfo[lane][0] = 2;
             button.setText("Trucks Only");
-            button.setTextColor(Color.parseColor("#4196db"));
+            button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.laneTextBlue));
         }
         else {
             Shared.Data.laneInfo[lane][0] = 0;
             button.setText("Closed");
-            button.setTextColor(Color.parseColor("#d10000"));
+            button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.laneTextRed));
         }
     }
 
@@ -223,8 +225,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             final TextView[] laneQueuesTextViews = {laneQueue1TextView, laneQueue2TextView, laneQueue3TextView,
                     laneQueue4TextView, laneQueue5TextView};
             for (int i = 0; i < 5; i++) {
-                // TODO: for some reason, the Shared.Data.laneInfo[i][1] values are crazy high numbers
-                laneQueuesTextViews[i].setText(Integer.toString(Shared.Data.laneInfo[i][1]));
+                int carsInQueue = Shared.Data.laneInfo[i][1];
+                laneQueuesTextViews[i].setText(Integer.toString(carsInQueue));
+
+                if (carsInQueue <= 5)
+                    laneQueuesTextViews[i].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.queueGreen));
+                else if (carsInQueue > 5 && carsInQueue <= 25)
+                    laneQueuesTextViews[i].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.queueOrange));
+                else if (carsInQueue > 25)
+                    laneQueuesTextViews[i].setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.queueRed));
             }
         }
 

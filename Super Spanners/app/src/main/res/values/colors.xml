@@ -3,5 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="brightRed">#FF0000</color>
+    <color name="queueGreen">#01ac00</color>
+    <color name="queueOrange">#ff9900</color>
+    <color name="queueRed">#FF0000</color>
+    <color name="laneTextRed">#FF0000</color>
+    <color name="laneTextBlue">#4196db</color>
 </resources>
