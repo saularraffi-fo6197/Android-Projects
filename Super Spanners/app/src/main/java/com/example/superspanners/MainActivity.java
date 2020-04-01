@@ -96,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         stopSim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (timer != null) timer.cancel();
+                if (timer != null)
+                    timer.cancel();
                 timer = null;
                 simulationInProgress = false;
                 toast("Simulation Stopped");
@@ -211,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void startTimerTask() {
         timer = new Timer();
-        timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE, Shared.Data.THREAD_PAUSE);
+        timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE*1000, Shared.Data.THREAD_PAUSE*1000);
     }
 
     public Handler updateUI = new Handler()
