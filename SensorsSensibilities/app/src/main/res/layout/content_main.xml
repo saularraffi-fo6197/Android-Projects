@@ -23,7 +23,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:gravity="center"
-                android:layout_marginTop="159dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginBottom="20dp">
             </TextView>
 

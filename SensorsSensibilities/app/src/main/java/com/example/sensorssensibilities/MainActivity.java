@@ -41,7 +41,9 @@ import android.hardware.SensorEventListener;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private TextView sensorOut;
+    private TextView sensorOutText_X;
+    private TextView sensorOutText_Y;
+    private TextView sensorOutText_Z;
     private Button startBtn;
     private Button stopBtn;
 
@@ -59,11 +61,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        sensorOut = findViewById(R.id.sensorOutput);
+        sensorOutText_X = findViewById(R.id.xVal);
+        sensorOutText_Y = findViewById(R.id.yVal);
+        sensorOutText_Z = findViewById(R.id.zVal);
         startBtn = findViewById(R.id.startButton);
         stopBtn = findViewById(R.id.stopButton);
-
-        sensorOut.setText("");
 
         setStartBtnListener();
         setStopBtnListener();
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mySensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         sensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+//        saveSensorOutput("");
     }
 
     @Override
@@ -147,9 +151,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     "  X: " + Shared.Data.sensorX +
                     "  Y: " + Shared.Data.sensorY +
                     "  Z: " + Shared.Data.sensorZ);
-            sensorOut.setText("X: " + Shared.Data.sensorX +
-                    "  Y: " + Shared.Data.sensorY +
-                    "  Z: " + Shared.Data.sensorZ);
+
+            sensorOutText_X.setText("X: " + Shared.Data.sensorX);
+            sensorOutText_Y.setText("Y: " + Shared.Data.sensorY);
+            sensorOutText_Z.setText("Z: " + Shared.Data.sensorZ);
         }
 
     };
