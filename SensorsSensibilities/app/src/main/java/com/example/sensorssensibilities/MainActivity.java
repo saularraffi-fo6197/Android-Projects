@@ -1,5 +1,7 @@
 package com.example.sensorssensibilities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,13 +33,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            AlertDialog.Builder about = new AlertDialog.Builder(this);
+            about.setTitle("About");
+            about.setMessage("App name:     Sensors&Sensibilities \n" +
+                             "Author:           Saular Raffi \n" +
+                             "Version:         1.0");
+            about.setCancelable(true);
+            about.setNeutralButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            AlertDialog alert = about.create();
+            alert.show();
+
             return true;
         }
 

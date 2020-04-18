@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Sensors&amp;Sensibilities</string>
-    <string name="action_settings">Settings</string>
+    <string name="menu_about">About</string>
 </resources>
