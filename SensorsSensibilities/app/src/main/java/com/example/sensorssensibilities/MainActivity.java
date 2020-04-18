@@ -9,12 +9,26 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView sensorOut;
+    Button startBtn;
+    Button stopBtn;
+
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +36,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        sensorOut = findViewById(R.id.sensorOutput);
+        startBtn = findViewById(R.id.startButton);
+        stopBtn = findViewById(R.id.stopButton);
+
+        sensorOut.setText("0");
+
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTimerTask();
+                toast("Capturing sensor output");
+            }
+        });
+
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (timer != null)
+                    timer.cancel();
+                timer = null;
+
+                toast("Sensor output capturing has stopped");
+            }
+        });
     }
 
     @Override
@@ -56,5 +95,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startTimerTask() {
+        timer = new Timer();
+        timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE*1000, Shared.Data.THREAD_PAUSE*1000);
+    }
+
+    public Handler updateUI = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg)
+        {
+            sensorOut.setText(Double.toString(Shared.Data.sensorOutput));
+        }
+
+    };
+
+    public void writeSensorOutputToFile() {
+        System.out.print("writing to file");
+    }
+
+    public void toast(String str) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 }
