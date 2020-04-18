@@ -34,13 +34,21 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Timer;
 
-public class MainActivity extends AppCompatActivity {
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private TextView sensorOut;
     private Button startBtn;
     private Button stopBtn;
 
     private Timer timer;
+
+    private Sensor mySensor;
+    private SensorManager sensorManager;
 
     private static final String FILE_NAME = "sensor_out.txt";
 
@@ -55,10 +63,16 @@ public class MainActivity extends AppCompatActivity {
         startBtn = findViewById(R.id.startButton);
         stopBtn = findViewById(R.id.stopButton);
 
-        sensorOut.setText("0");
+        sensorOut.setText("");
 
         setStartBtnListener();
         setStopBtnListener();
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        mySensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        sensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -129,8 +143,13 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg)
         {
             Date currentTime = Calendar.getInstance().getTime();
-            saveSensorOutput("" + currentTime + "\t" + Shared.Data.sensorOutput);
-            sensorOut.setText(Double.toString(Shared.Data.sensorOutput));
+            saveSensorOutput("" + currentTime + "\t" +
+                    "  X: " + Shared.Data.sensorX +
+                    "  Y: " + Shared.Data.sensorY +
+                    "  Z: " + Shared.Data.sensorZ);
+            sensorOut.setText("X: " + Shared.Data.sensorX +
+                    "  Y: " + Shared.Data.sensorY +
+                    "  Z: " + Shared.Data.sensorZ);
         }
 
     };
@@ -156,8 +175,20 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    
+
     public void toast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        Shared.Data.sensorX = event.values[0];
+        Shared.Data.sensorY = event.values[1];
+        Shared.Data.sensorZ = event.values[2];
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // not imp
     }
 }

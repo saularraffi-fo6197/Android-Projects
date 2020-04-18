@@ -11,7 +11,6 @@ public class TimerTasks extends TimerTask {
     }
 
     public void run() {
-        Shared.Data.sensorOutput = Shared.Data.sensorOutput + 1;
         parent.updateUI.sendEmptyMessage(0);
     }
 }
