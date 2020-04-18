@@ -9,35 +9,56 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@android:color/holo_blue_bright">
+        android:background="@android:color/holo_orange_light">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Sensor Value:"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="ACCELEROMETER OUTPUT"
+                android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="275dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center_vertical"
-                android:paddingStart="60dp"
-                android:paddingEnd="10dp">
+                android:gravity="center"
+                android:layout_marginTop="159dp"
+                android:layout_marginBottom="20dp">
             </TextView>
 
             <TextView
-                android:id="@+id/sensorOutput"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="output"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:layout_marginTop="275dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center_vertical"
-                android:paddingStart="30dp">
+                android:id="@+id/xVal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="X: "
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:paddingStart="125dp">
             </TextView>
+
+            <TextView
+                android:id="@+id/yVal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Y: "
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:paddingStart="125dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/zVal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Z: "
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:paddingStart="125dp">
+            </TextView>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
