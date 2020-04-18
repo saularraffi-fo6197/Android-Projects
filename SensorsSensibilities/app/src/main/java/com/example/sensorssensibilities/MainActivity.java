@@ -20,15 +20,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView sensorOut;
-    Button startBtn;
-    Button stopBtn;
+    private TextView sensorOut;
+    private Button startBtn;
+    private Button stopBtn;
 
     private Timer timer;
+
+    private static final String FILE_NAME = "sensor_out.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         sensorOut.setText("0");
 
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTimerTask();
-                toast("Capturing sensor output");
-            }
-        });
+        setStartBtnListener();
+        setStopBtnListener();
 
-        stopBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (timer != null)
-                    timer.cancel();
-                timer = null;
-
-                toast("Sensor output capturing has stopped");
-            }
-        });
+        writeSensorOutputToFile("This is a test");
     }
 
     @Override
@@ -97,6 +88,29 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setStartBtnListener() {
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTimerTask();
+                toast("Capturing sensor output");
+            }
+        });
+    }
+
+    public void setStopBtnListener() {
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (timer != null)
+                    timer.cancel();
+                timer = null;
+
+                toast("Sensor output capturing has stopped");
+            }
+        });
+    }
+
     public void startTimerTask() {
         timer = new Timer();
         timer.schedule(new TimerTasks(this), Shared.Data.THREAD_PAUSE*1000, Shared.Data.THREAD_PAUSE*1000);
@@ -112,8 +126,25 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    public void writeSensorOutputToFile() {
-        System.out.print("writing to file");
+    public void writeSensorOutputToFile(String text) {
+        FileOutputStream fstream = null;
+        try {
+            fstream = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            fstream.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (fstream != null) {
+                try {
+                    fstream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public void toast(String str) {
