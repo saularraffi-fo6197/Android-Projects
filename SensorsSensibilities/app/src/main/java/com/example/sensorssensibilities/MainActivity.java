@@ -2,6 +2,7 @@ package com.example.sensorssensibilities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -20,9 +22,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.util.Date;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
         setStartBtnListener();
         setStopBtnListener();
-
-        writeSensorOutputToFile("This is a test");
     }
 
     @Override
@@ -121,32 +128,35 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg)
         {
+            Date currentTime = Calendar.getInstance().getTime();
+            saveSensorOutput("" + currentTime + "\t" + Shared.Data.sensorOutput);
             sensorOut.setText(Double.toString(Shared.Data.sensorOutput));
         }
 
     };
 
-    public void writeSensorOutputToFile(String text) {
-        FileOutputStream fstream = null;
-        try {
-            fstream = openFileOutput(FILE_NAME, MODE_PRIVATE);
-            fstream.write(text.getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void saveSensorOutput(String text) {
+
+        FileOutputStream fostream = null;
+        PrintStream streamOut = null;
+
+        try
+        {
+            fostream = openFileOutput(FILE_NAME, MODE_APPEND);
+
+            streamOut = new PrintStream(fostream);
+
+            streamOut.println(text);
+
+            fostream.close();
+            streamOut.close();
         }
-        finally {
-            if (fstream != null) {
-                try {
-                    fstream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
-
+    
     public void toast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
