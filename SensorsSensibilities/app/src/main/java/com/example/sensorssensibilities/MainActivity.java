@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mySensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         sensorManager.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-//        saveSensorOutput("");
     }
 
     @Override
